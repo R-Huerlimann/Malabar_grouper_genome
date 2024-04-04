@@ -24,8 +24,8 @@ DIRin2=/malabar/01_Raw_data/PB_IsoSeq_Run02
 FILEbam2=Emal_ISOseq_Run02.ccs.bam
 FILEreport2=Emal_ISOseq_Run02_ccs_report.txt
 
-DIRout1=/malabar/03_isoseq_assembly/Run01
-DIRout2=/malabar/03_isoseq_assembly/Run02
+DIRout1=/malabar/04_isoseq_assembly/Run01
+DIRout2=/malabar/04_isoseq_assembly/Run02
 
 mkdir -p ${DIRout1};mkdir -p ${DIRout2}
 

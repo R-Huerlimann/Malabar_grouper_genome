@@ -18,8 +18,8 @@
 ml PB_isoseq3
 
 ### Directories ###
-DIRin1=/malabar/03_isoseq_assembly/Run01
-DIRin2=/malabar/03_isoseq_assembly/Run02
+DIRin1=/malabar/04_isoseq_assembly/Run01
+DIRin2=/malabar/04_isoseq_assembly/Run02
 
 ### Code ###
 cd ${inDir1}

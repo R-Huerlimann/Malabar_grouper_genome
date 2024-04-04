@@ -20,8 +20,8 @@
 ml PB_isoseq3
 
 ### Directories ###
-DIRin=/malabar/03_isoseq_assembly/Run02
-DIRout=/malabar/03_isoseq_assembly/Run02
+DIRin=/malabar/04_isoseq_assembly/Run02
+DIRout=/malabar/04_isoseq_assembly/Run02
 indices=/malabar/00_Raw_data/Iso-Seq_96_primer_set.fasta
 
 ### Code ###

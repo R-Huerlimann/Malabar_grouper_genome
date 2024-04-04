@@ -21,9 +21,9 @@ ml samtools/1.9
 DIRgenome=/malabar/02_Scaffolding
 FILEgenome=Emal_V1_24Chr_P0_rn.fasta
 
-DIRin=/malabar/03_isoseq_assembly
+DIRin=/malabar/04_isoseq_assembly
 FILEfastq=Emal_all_flnc.fastq
-FILEsam=Emal_isoforms.fastq.sam
+FILEsam=Emal_isoseq_fastq.sam
 
 DIRout=${DIRin}/04_read_mapping
 
@@ -54,9 +54,9 @@ echo "done mapping"
 
 #sorting the sam file
 echo "starting sorting"
-sort -k 3,3 -k 4,4n ${FILEsam} > ${FILEsam/.sam/sorted.sam}
+sort -k 3,3 -k 4,4n ${FILEsam} > ${FILEsam/.sam/_sorted.sam}
 echo "done sorting"
 
 echo "compressing sam to bam file"
-samtools view -S -b ${FILEsam/.sam/sorted.sam} > ${FILEsam/.sam/sorted.bam}
+samtools view -S -b ${FILEsam/.sam/_sorted.sam} > ${FILEsam/.sam/_sorted.bam}
 echo "done compressing"

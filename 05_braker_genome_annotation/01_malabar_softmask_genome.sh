@@ -1,10 +1,13 @@
 #!/bin/bash
 
+### Environment ###
 ml bedtools/2.30.0
 
-cd /malabar/09_Final_resources/
+### Directories and Files ###
+DIRin=/malabar/02_HiC_scaffolded_assembly
+FILErepeats=/malabar/03_repeat_annotation/merged_repeats_unique.gff3
+FILEgenome=Emal_V1_24Chr_P0_rn.fasta
 
-repeatsP0=/malabar/03_repeat_annotation/merged_repeats_unique.gff3
-genomeP0=Emal_V1_24Chr_P0_rn.fasta
-
-bedtools maskfasta -soft -fi ${genomeP0} -bed ${repeatsP0} -fo ${genomeP0/_rn/_rn_sm}
+### Code ###
+cd ${DIRin}
+bedtools maskfasta -soft -fi ${FILEgenome} -bed ${FILErepeats} -fo ${FILEgenome/.fasta/sm.fasta}

@@ -13,7 +13,7 @@ ml diamond/2.0.9
 ml ncbi-blast/2.10.0+
 
 ### Directories and Files ###
-DIRin=/malabar/03_Annotation/04_braker_all_202109/emal_braker_RNA_PROT_all/
+DIRin=/malabar/05_braker_annotation/emal_braker_RNA_PROT_all
 FILEaa=augustus.hints.aa
 
 ### Code ###

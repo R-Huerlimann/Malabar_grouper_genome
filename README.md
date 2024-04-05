@@ -8,7 +8,8 @@ Braker post processing
 # In your braker output dir
 python selectSupportedSubsets.py --fullSupport FULLSUPPORT --anySupport ANYSUPPORT --noSupport NOSUPPORT augustus.hints.gtf hintsfile.gff
 
-
+# Tomas Bruna
+# Copyright 2020, Georgia Institute of Technology, USA
 
 
 

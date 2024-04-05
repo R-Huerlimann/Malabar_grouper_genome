@@ -17,7 +17,7 @@ conda activate braker2
 ml genemark/4.62_lic
 ml prothint/2.6.0
 
-### Data and folders ###
+### Directories and Files ###
 FILEgenome=Emal_V1_24Chr_P0_rn_sm.fasta #soft masked genome
 DIRiso=/malabar/04_isoseq_assembly/04_read_mapping/
 FILEisobam=Emal_isoforms.fastq.sorted.bam
@@ -25,7 +25,6 @@ FILErnabam=Emal_larvae_mapped_sorted.bam
 FILEprotein=/databases/aa_seq_annotation/uniprot_plus_fish_proteomes.fasta
 
 DIRout=/malabar/05_braker_annotation
-
 
 ### Code ###
 cd ${DIRout}

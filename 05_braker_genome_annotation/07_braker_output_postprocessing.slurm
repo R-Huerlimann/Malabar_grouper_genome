@@ -1,8 +1,11 @@
+---
+title: "Braker output post-processing"
+author: "RH"
+---
 
 ```{r}
-library(stringr)
-library(Biostrings)
-library(dplyr)
+sapply(c("dplyr", "Biostrings", "stringr"), 
+        require, character.only = TRUE)
 ```
 
 RNA
@@ -20,11 +23,8 @@ colnames(before_select_df) = c("gene", "isoform", "length")
 after_select_df <- before_select_df %>% group_by(gene) %>% slice(which.max(length));
 longest_isoform = paste0(after_select_df$gene, ".", after_select_df$isoform)
 data2=data[names(data) %in% longest_isoform];
-writeXStringSet(data2, "augustus.hints_longest_isoform.aa")  
+writeXStringSet(data2, "augustus.hints_longest_isoform.aa")  # Run busco 
 ```
-# Run busco 
-
-
 # Use only anysupport models and nosupport models with pfam domain + diamond hit, then use only one isoform.
 ```{r}
 gtf1 <- read.table("ANYSUPPORT", stringsAsFactors=F, sep="\t")
@@ -44,9 +44,11 @@ writeXStringSet(data2[names(data2) %in% gene_list1], "augustus.hints_anysupport_
 writeXStringSet(data2[names(data2) %in% c(gene_list1, gene_list3_with_domain_blast)], "augustus.hints_anysupport_nosupportwithdomaindiamond_longest_isoform.aa");    # Run busco
 ```
 
+
 DNA
-```{r}
+NOTE: I do this to get a filtered set of DNA sequences
 # Get longest isoform per gene.
+```{r}
 data = readDNAStringSet("augustus.hints.codingseq");  
 before_select_df = as.data.frame(cbind(word(names(data), 1, sep="\\."), word(names(data), 2, sep="\\."), width(data)));
 colnames(before_select_df) = c("gene", "isoform", "length")
@@ -55,9 +57,6 @@ longest_isoform = paste0(after_select_df$gene, ".", after_select_df$isoform)
 data2=data[names(data) %in% longest_isoform];
 writeXStringSet(data2, "augustus.hints_longest_isoform.fna") 
 ```
-# Run busco 
-
-
 # Use only anysupport models and nosupport models with pfam domain + diamond hit, then use only one isoform.
 ```{r}
 gtf1 <- read.table("ANYSUPPORT", stringsAsFactors=F, sep="\t")

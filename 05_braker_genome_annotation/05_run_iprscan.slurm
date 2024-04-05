@@ -12,7 +12,7 @@
 ### Environment ###
 ml interproscan/5.48.83.0
 
-### Directories and Files###
+### Directories and Files ###
 DIRin=/malabar/03_Annotation/04_braker_all_202109/emal_braker_RNA_PROT_all/
 FILEaa=augustus.hints.aa
 

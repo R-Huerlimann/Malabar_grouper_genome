@@ -10,20 +10,22 @@
 #SBATCH --mail-type=END,FAIL
 #SBATCH --array=0-23%24
 
-### Modules ###
+### Note ###
+#This script runs a series of quality control for the mapped samples.
+#At the end, it's recommended to run multiqc to get a summary of the results.
+
+### Environment ###
 module load samtools
 module load rseqc
 module load multiqc
 
-### Directories ###
+### Directories and Files ###
 DIRin=/malabar/07_larval_analysis/02_Read_mapping/
 array=(${DIRin}/REMD*)
 DIRbed=/malabar/05_braker_annotation/emal_braker_RNA_PROT_all
 FILEbed=final_annot.bed
 
-
 ### Code ###
-
 echo "changing directory to ${array[${SLURM_ARRAY_TASK_ID}]}"
 cd ${array[${SLURM_ARRAY_TASK_ID}]}
 

@@ -4,7 +4,9 @@ Scripts associated with the sequencing, annotation and assembly of the Malabar g
 
 
 
-
+Braker post processing
+# In your braker output dir
+python selectSupportedSubsets.py --fullSupport FULLSUPPORT --anySupport ANYSUPPORT --noSupport NOSUPPORT augustus.hints.gtf hintsfile.gff
 
 
 

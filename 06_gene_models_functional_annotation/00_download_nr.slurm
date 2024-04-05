@@ -11,7 +11,7 @@
 ### Environment ###
 ml ncbi-blast/2.10.0+
 
-### Data and folders ###
+### Directories ###
 DIRout=/blast_NR
 
 ### Code ###

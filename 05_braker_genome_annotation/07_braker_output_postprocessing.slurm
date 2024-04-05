@@ -1,0 +1,78 @@
+
+```{r}
+library(stringr)
+library(Biostrings)
+library(dplyr)
+```
+
+RNA
+# Load interproscan and diamond results
+```{r}
+iprscan_res = read.table("iprscan_result.txt", stringsAsFactors=F, sep="\t", fill=T, quote="\"")
+diamond_res = read.table("diamond_matches.tsv", stringsAsFactors=F, sep="\t");    
+```
+
+# Get longest isoform per gene.
+```{r}
+data = readAAStringSet("augustus.hints.aa");  
+before_select_df = as.data.frame(cbind(word(names(data), 1, sep="\\."), word(names(data), 2, sep="\\."), width(data)));
+colnames(before_select_df) = c("gene", "isoform", "length")
+after_select_df <- before_select_df %>% group_by(gene) %>% slice(which.max(length));
+longest_isoform = paste0(after_select_df$gene, ".", after_select_df$isoform)
+data2=data[names(data) %in% longest_isoform];
+writeXStringSet(data2, "augustus.hints_longest_isoform.aa")  
+```
+# Run busco 
+
+
+# Use only anysupport models and nosupport models with pfam domain + diamond hit, then use only one isoform.
+```{r}
+gtf1 <- read.table("ANYSUPPORT", stringsAsFactors=F, sep="\t")
+gtf2 <- read.table("FULLSUPPORT", stringsAsFactors=F, sep="\t")
+gtf3 <- read.table("NOSUPPORT", stringsAsFactors=F, sep="\t")
+gene_list1 = str_replace_all(unique(word(gtf1$V9, 2, sep=";")), " gene_id ", "") 
+gene_list2 = str_replace_all(unique(word(gtf2$V9, 2, sep=";")), " gene_id ", "") 
+gene_list3 = str_replace_all(unique(word(gtf3$V9, 2, sep=";")), " gene_id ", "") 
+setdiff(gene_list2, gene_list1);    # nothing. Full set is part of any set. 
+gene_list3_with_domain_blast = gene_list3[gene_list3 %in% c(word(iprscan_res$V1, 1, sep="\\."), word(diamond_res$V1, 1, sep="\\."))]; 
+```
+
+# Export data
+```{r}
+names(data2) = word(names(data2), 1, sep="\\.");
+writeXStringSet(data2[names(data2) %in% gene_list1], "augustus.hints_anysupport_longest_isoform.aa");    # Run busco
+writeXStringSet(data2[names(data2) %in% c(gene_list1, gene_list3_with_domain_blast)], "augustus.hints_anysupport_nosupportwithdomaindiamond_longest_isoform.aa");    # Run busco
+```
+
+DNA
+```{r}
+# Get longest isoform per gene.
+data = readDNAStringSet("augustus.hints.codingseq");  
+before_select_df = as.data.frame(cbind(word(names(data), 1, sep="\\."), word(names(data), 2, sep="\\."), width(data)));
+colnames(before_select_df) = c("gene", "isoform", "length")
+after_select_df <- before_select_df %>% group_by(gene) %>% slice(which.max(length));
+longest_isoform = paste0(after_select_df$gene, ".", after_select_df$isoform)
+data2=data[names(data) %in% longest_isoform];
+writeXStringSet(data2, "augustus.hints_longest_isoform.fna") 
+```
+# Run busco 
+
+
+# Use only anysupport models and nosupport models with pfam domain + diamond hit, then use only one isoform.
+```{r}
+gtf1 <- read.table("ANYSUPPORT", stringsAsFactors=F, sep="\t")
+gtf2 <- read.table("FULLSUPPORT", stringsAsFactors=F, sep="\t")
+gtf3 <- read.table("NOSUPPORT", stringsAsFactors=F, sep="\t")
+gene_list1 = str_replace_all(unique(word(gtf1$V9, 2, sep=";")), " gene_id ", "") 
+gene_list2 = str_replace_all(unique(word(gtf2$V9, 2, sep=";")), " gene_id ", "") 
+gene_list3 = str_replace_all(unique(word(gtf3$V9, 2, sep=";")), " gene_id ", "") 
+setdiff(gene_list2, gene_list1);    # nothing. Full set is part of any set. 
+gene_list3_with_domain_blast = gene_list3[gene_list3 %in% c(word(iprscan_res$V1, 1, sep="\\."), word(diamond_res$V1, 1, sep="\\."))]; 
+```
+
+# Export data
+```{r}
+names(data2) = word(names(data2), 1, sep="\\.");
+writeXStringSet(data2[names(data2) %in% gene_list1], "augustus.hints_anysupport_longest_isoform.fna");    # Run busco
+writeXStringSet(data2[names(data2) %in% c(gene_list1, gene_list3_with_domain_blast)], "augustus.hints_anysupport_nosupportwithdomaindiamond_longest_isoform.fna");    # Run busco
+```

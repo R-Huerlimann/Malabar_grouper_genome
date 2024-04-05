@@ -13,7 +13,7 @@
 ml star/2.7.9a
 
 ### Directories ###
-DIRgenome=/09_Final_resources
+DIRin=/malabar/02_HiC_scaffolded_assembly
 FILEgenome=Emal_V1_24Chr_P0_rn.fasta
 DIRgff=/03_Annotation/03_annotation_genes/03_Breaker_annotation/emal_braker_RNA_PROT_all
 FILEgff=final_annot.gff3

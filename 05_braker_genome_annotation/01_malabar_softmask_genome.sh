@@ -10,4 +10,4 @@ FILEgenome=Emal_V1_24Chr_P0_rn.fasta
 
 ### Code ###
 cd ${DIRin}
-bedtools maskfasta -soft -fi ${FILEgenome} -bed ${FILErepeats} -fo ${FILEgenome/.fasta/sm.fasta}
+bedtools maskfasta -soft -fi ${FILEgenome} -bed ${FILErepeats} -fo ${FILEgenome/.fasta/.sm.fasta}

@@ -14,9 +14,9 @@
 module load cutadapt
 module load trimgalore
 
-### Directories ###
+### Directories and Files ###
 files=(/malabar/00_Raw_data/RNAseq_Larvae/ID240_AB/*R1_*gz)
-DIRout=/malabar/07_larval_analysis/02_Trimmed_reads
+DIRout=/malabar/07_larval_analysis/01_Read_QC/02_Trimmed_reads
 name=${files[${SLURM_ARRAY_TASK_ID}]};name=${name##*/};name=${name%_R1*}
 
 ### Code ###

@@ -1,0 +1,127 @@
+---
+title: "Developmental_Genes"
+author: "RH"
+date: "05/01/2022"
+---
+
+#====================================================================================================
+### Loading packages ###
+#====================================================================================================
+```{r}
+sapply(c("DESeq2"), require, character.only = TRUE)
+```
+
+#====================================================================================================
+### Plotting genes of interest selected based on their annotation ###
+#====================================================================================================
+```{r}
+pdf("gene_expression_plots.pdf", width = 10, height = 5)
+# Thyroid hormone synthesis and signalling
+plotCounts(dds, gene = "jg17753", intgroup=c("Stage"), transform = FALSE) #thyroid peroxidase
+plotCounts(dds, gene = "jg25695", intgroup=c("Stage"), transform = FALSE) #thyroid stimulating hormone subunit beta a
+plotCounts(dds, gene = "jg6883", intgroup=c("Stage"), transform = FALSE) #thyroid hormone receptor alpha
+plotCounts(dds, gene = "jg8513", intgroup=c("Stage"), transform = FALSE) #thyroid hormone receptor alpha
+plotCounts(dds, gene = "jg21688", intgroup=c("Stage"), transform = FALSE) #thyroid hormone receptor beta
+plotCounts(dds, gene = "jg21946", intgroup=c("Stage"), transform = FALSE) #thyroglobulin
+plotCounts(dds, gene = "jg23509", intgroup=c("Stage"), transform = FALSE) #thyroxine 5-deiodinase-like
+plotCounts(dds, gene = "jg11599", intgroup=c("Stage"), transform = FALSE) #type I iodothyronine deiodinase
+plotCounts(dds, gene = "jg18314", intgroup=c("Stage"), transform = FALSE) #iodothyronine deiodinase 3a
+plotCounts(dds, gene = "jg15205", intgroup=c("Stage"), transform = FALSE) #thyrotropin-releasing hormone receptor-like
+plotCounts(dds, gene = "jg20958", intgroup=c("Stage"), transform = FALSE) #thyrotropin-releasing hormone receptor b
+plotCounts(dds, gene = "jg23185", intgroup=c("Stage"), transform = FALSE) #thyrotropin-releasing hormone receptor
+
+# Corticosteroid
+plotCounts(dds, gene = "jg6968", intgroup=c("Stage"), transform = FALSE) #corticotropin-releasing factor receptor 1
+plotCounts(dds, gene = "jg8285", intgroup=c("Stage"), transform = FALSE) #corticotropin-releasing factor receptor 1-like
+plotCounts(dds, gene = "jg16465", intgroup=c("Stage"), transform = FALSE) #corticotropin-releasing factor receptor 2
+plotCounts(dds, gene = "jg26545", intgroup=c("Stage"), transform = FALSE) #corticotropin releasing hormone b
+plotCounts(dds, gene = "jg3165", intgroup=c("Stage"), transform = FALSE) #pro-opiomelanocortin-like
+plotCounts(dds, gene = "jg20701", intgroup=c("Stage"), transform = FALSE) #pro-opiomelanocortin-like
+plotCounts(dds, gene = "jg23855", intgroup=c("Stage"), transform = FALSE) #pro-opiomelanocortin-like
+
+# Visual opsin
+plotCounts(dds, gene = "jg25144", intgroup=c("Stage"), transform = FALSE) #blue-sensitive opsin-like
+plotCounts(dds, gene = "jg25145", intgroup=c("Stage"), transform = FALSE) #blue-sensitive opsin-like
+plotCounts(dds, gene = "jg25146", intgroup=c("Stage"), transform = FALSE) #blue-sensitive opsin
+plotCounts(dds, gene = "jg25147", intgroup=c("Stage"), transform = FALSE) #long-wavelength sensitive opsin
+plotCounts(dds, gene = "jg25404", intgroup=c("Stage"), transform = FALSE) #green-sensitive opsin
+plotCounts(dds, gene = "jg25405", intgroup=c("Stage"), transform = FALSE) #medium-wavelength sensitive opsin
+plotCounts(dds, gene = "jg25406", intgroup=c("Stage"), transform = FALSE) #green-sensitive opsin-like
+plotCounts(dds, gene = "jg29947", intgroup=c("Stage"), transform = FALSE) #rhodopsin
+plotCounts(dds, gene = "jg4", intgroup=c("Stage"), transform = FALSE) #opsin-1, short-wave-sensitive 1
+plotCounts(dds, gene = "jg15445", intgroup=c("Stage"), transform = FALSE) #rhodopsin
+plotCounts(dds, gene = "jg15477", intgroup=c("Stage"), transform = FALSE) #rhodopsin
+plotCounts(dds, gene = "jg25144", intgroup=c("Stage"), transform = FALSE) #blue-sensitive opsin-like
+
+# Ossification
+plotCounts(dds, gene = "jg30238", intgroup=c("Stage"), transform = FALSE) #annexin A1-like
+plotCounts(dds, gene = "jg13840", intgroup=c("Stage"), transform = FALSE) #annexin A1a
+plotCounts(dds, gene = "jg30106", intgroup=c("Stage"), transform = FALSE) #annexin A3-like
+plotCounts(dds, gene = "jg3", intgroup=c("Stage"), transform = FALSE) #calumenin-A
+plotCounts(dds, gene = "jg6632", intgroup=c("Stage"), transform = FALSE) #matrix Gla protein
+plotCounts(dds, gene = "jg20289", intgroup=c("Stage"), transform = FALSE) #bone gamma-carboxyglutamate (gla) protein, like
+plotCounts(dds, gene = "jg7148", intgroup=c("Stage"), transform = FALSE) #transforming growth factor, beta 1a
+plotCounts(dds, gene = "jg7149", intgroup=c("Stage"), transform = FALSE) #transforming growth factor, beta 1a
+plotCounts(dds, gene = "jg26222", intgroup=c("Stage"), transform = FALSE) #phosphate-regulating neutral endopeptidase PHEX
+plotCounts(dds, gene = "jg2386", intgroup=c("Stage"), transform = FALSE) #periostin-like isoform X1
+plotCounts(dds, gene = "jg7252", intgroup=c("Stage"), transform = FALSE) #periostin, osteoblast specific factor b isoform X1
+
+# Lipid metabolism
+plotCounts(dds, gene = "jg9569", intgroup=c("Stage"), transform = FALSE) #fatty acid synthase
+plotCounts(dds, gene = "jg14102", intgroup=c("Stage"), transform = FALSE) #acetyl-CoA carboxylase 2 isoform X4
+plotCounts(dds, gene = "jg14103", intgroup=c("Stage"), transform = FALSE) #acetyl-CoA carboxylase isoform X1
+plotCounts(dds, gene = "jg2945", intgroup=c("Stage"), transform = FALSE) #acetyl-CoA carboxylase 1 isoform X1
+plotCounts(dds, gene = "jg14282", intgroup=c("Stage"), transform = FALSE) #NAD-dependent malic enzyme, mitochondrial
+plotCounts(dds, gene = "jg23203", intgroup=c("Stage"), transform = FALSE) #NADP-dependent malic enzyme
+plotCounts(dds, gene = "jg10058", intgroup=c("Stage"), transform = FALSE) #NADP-dependent malic enzyme, mitochondrial
+plotCounts(dds, gene = "jg8315", intgroup=c("Stage"), transform = FALSE) #fatty acid desaturase 6
+plotCounts(dds, gene = "jg17422", intgroup=c("Stage"), transform = FALSE) #ELOVL fatty acid elongase 8a
+plotCounts(dds, gene = "jg19898", intgroup=c("Stage"), transform = FALSE) #peroxisome proliferator-activated receptor gamma coactivator-related protein 1-like isoform X2
+plotCounts(dds, gene = "jg28092", intgroup=c("Stage"), transform = FALSE) #peroxisome proliferator-activated receptor gamma coactivator 1-beta
+plotCounts(dds, gene = "jg25534", intgroup=c("Stage"), transform = FALSE) #peroxisome proliferator-activated receptor gamma
+plotCounts(dds, gene = "jg2602", intgroup=c("Stage"), transform = FALSE) #carbohydrate-responsive element-binding protein-like isoform X1
+plotCounts(dds, gene = "jg6405", intgroup=c("Stage"), transform = FALSE) #sterol regulatory element-binding protein 1
+plotCounts(dds, gene = "jg23962", intgroup=c("Stage"), transform = FALSE) #acetyl-CoA acetyltransferase, cytosolic
+plotCounts(dds, gene = "jg8838", intgroup=c("Stage"), transform = FALSE) #glycerol-3-phosphate acyltransferase 1, mitochondrial
+plotCounts(dds, gene = "jg4525", intgroup=c("Stage"), transform = FALSE) #NAD-dependent protein deacetylase sirtuin-3
+
+# Glycolysis
+plotCounts(dds, gene = "jg4903", intgroup=c("Stage"), transform = FALSE) #pyruvate kinase PKM-like
+plotCounts(dds, gene = "jg12467", intgroup=c("Stage"), transform = FALSE) #pyruvate kinase PKM isoform
+plotCounts(dds, gene = "jg22417", intgroup=c("Stage"), transform = FALSE) #pyruvate kinase PKLR isoform
+plotCounts(dds, gene = "jg15769", intgroup=c("Stage"), transform = FALSE) #phosphofructokinase, muscle a
+plotCounts(dds, gene = "jg25164", intgroup=c("Stage"), transform = FALSE) #phosphofructokinase, muscle b
+
+# Krebs cycle
+plotCounts(dds, gene = "jg26417", intgroup=c("Stage"), transform = FALSE) #acyl-CoA dehydrogenase family member 11
+plotCounts(dds, gene = "jg26419", intgroup=c("Stage"), transform = FALSE) #acyl-CoA dehydrogenase family member 11
+plotCounts(dds, gene = "jg4686", intgroup=c("Stage"), transform = FALSE) #isocitrate dehydrogenase [NADP], mitochondrial
+plotCounts(dds, gene = "jg9692", intgroup=c("Stage"), transform = FALSE) #isocitrate dehydrogenase [NADP] cytoplasmic
+plotCounts(dds, gene = "jg12512", intgroup=c("Stage"), transform = FALSE) #isocitrate dehydrogenase [NADP], mitochondrial-like
+
+# Lactate dehydrogenase
+plotCounts(dds, gene = "jg4467", intgroup=c("Stage"), transform = FALSE) #L-lactate dehydrogenase A chain
+plotCounts(dds, gene = "jg813", intgroup=c("Stage"), transform = FALSE) #L-lactate dehydrogenase B-A chain
+plotCounts(dds, gene = "jg4970", intgroup=c("Stage"), transform = FALSE) #L-lactate dehydrogenase C chain isoform X1
+
+# Iridophore
+plotCounts(dds, gene = "jg10037", intgroup=c("Stage"), transform = FALSE) #four and a half LIM domains protein 2
+plotCounts(dds, gene = "jg18416", intgroup=c("Stage"), transform = FALSE) #four and a half LIM domains protein 2-like
+plotCounts(dds, gene = "jg3334", intgroup=c("Stage"), transform = FALSE) #four and a half LIM domains protein 2-like
+
+# Melanophore
+plotCounts(dds, gene = "jg20297", intgroup=c("Stage"), transform = FALSE) #KIT proto-oncogene, receptor tyrosine kinase b isoform
+plotCounts(dds, gene = "jg15699", intgroup=c("Stage"), transform = FALSE) #receptor tyrosine-protein kinase erbB-3b
+plotCounts(dds, gene = "jg20308", intgroup=c("Stage"), transform = FALSE) #tyrosinase-related protein 1b
+plotCounts(dds, gene = "jg7696", intgroup=c("Stage"), transform = FALSE) #tyrosinase
+
+# Xanthophores
+plotCounts(dds, gene = "jg18680", intgroup=c("Stage"), transform = FALSE) #retinol dehydrogenase 12
+plotCounts(dds, gene = "jg26664", intgroup=c("Stage"), transform = FALSE) #retinol dehydrogenase 12
+plotCounts(dds, gene = "jg26665", intgroup=c("Stage"), transform = FALSE) #retinol dehydrogenase 12
+plotCounts(dds, gene = "jg1346", intgroup=c("Stage"), transform = FALSE) #perilipin-2
+plotCounts(dds, gene = "jg19512", intgroup=c("Stage"), transform = FALSE) #perilipin-2-like isoform X1
+plotCounts(dds, gene = "jg21933", intgroup=c("Stage"), transform = FALSE) #perilipin 6
+
+dev.off()
+```

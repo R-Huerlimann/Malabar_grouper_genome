@@ -1,0 +1,221 @@
+---
+title: "DGE_basic_pipeline"
+author: "Roger Huerlimann"
+date: "23/03/2022"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#====================================================================================================
+### Loading packages ###
+#====================================================================================================
+```{r}
+sapply(c("DESeq2", "tidyverse"), require, character.only = TRUE)
+```
+
+
+#====================================================================================================
+### Data preparation ###
+#====================================================================================================
+```{r}
+#loading the sample information into R from csv files
+sample_table <- read.csv("01_Raw_data/Metadata_all.csv", header=TRUE)
+
+#loading the count data into R from txt files
+count_data <- read.delim("01_Raw_data/STAR_gene_counts_all.tsv", header=TRUE)
+rownames(count_data) <- count_data[,1]
+count_data <- as.matrix(count_data[,-1])
+
+
+#loading the annotation information into R from the csv file
+annotation <- read_tsv("01_Raw_Data/Emal_final_annotation_20211122.txt")
+
+# removing duplicated gene names and unwanted genes
+annotation <- annotation %>%
+               filter(!duplicated(annotation$SeqName)) %>%
+               filter(grepl("jg", SeqName)) 
+
+```
+
+
+#====================================================================================================
+### Data processing ###
+#====================================================================================================
+```{r}
+#Setting up the DESeq model
+dds <- DESeqDataSetFromMatrix(countData = count_data,colData=sample_table,design = ~ Stage)
+
+#Running the actual DESeq fitting process. 
+dds <- DESeq(dds)
+
+#Running the reduced model for the LRT analysis
+dds_lrt <- DESeq(dds, test="LRT", reduced = ~ 1)
+res_lrt <- results(dds_lrt)
+
+summary(res_lrt)
+
+```
+
+#====================================================================================================
+### Differentially expressed genes ###
+#====================================================================================================
+#MA plot to plot differentially expressed genes (in blue), at different ranges for log fold change
+#Since we are looking at completely different tissues, the fold changes are relatively large
+```{r}
+plotMA(dds,ylim=c(-20,20),main='DESeq2')
+plotMA(dds_lrt,ylim=c(-20,20),main='DESeq2')
+```
+
+
+#Pulling out the different contrasts
+```{r}
+# setting a slighly more stringent cut-off
+padj.cutoff <- 0.01
+
+res_D01_D03 <- results(dds, contrast=c("Stage","D01","D03"))
+sig_res_D01_D03 <- res_D01_D03 %>%
+  data.frame() %>%
+  rownames_to_column(var="Gene") %>% 
+  as_tibble() %>% 
+  filter(padj < padj.cutoff) %>%
+  filter(between(!log2FoldChange, -.58, .58) )
+print("sig_res_D01_D03")
+nrow(sig_res_D01_D03)
+
+res_D03_D06 <- results(dds, contrast=c("Stage","D03","D06"))
+sig_res_D03_D06 <- res_D03_D06 %>%
+  data.frame() %>%
+  rownames_to_column(var="Gene") %>% 
+  as_tibble() %>% 
+  filter(padj < padj.cutoff) %>%
+  filter(between(!log2FoldChange, -.58, .58) )
+print("sig_res_D03_D06")
+nrow(sig_res_D03_D06)
+
+res_D06_D10 <- results(dds, contrast=c("Stage","D06","D10"))
+sig_res_D06_D10 <- res_D06_D10 %>%
+  data.frame() %>%
+  rownames_to_column(var="Gene") %>% 
+  as_tibble() %>% 
+  filter(padj < padj.cutoff) %>%
+  filter(between(!log2FoldChange, -.58, .58) )
+print("sig_res_D06_D10")
+nrow(sig_res_D06_D10)
+
+res_D10_D13 <- results(dds, contrast=c("Stage","D10","D13"))
+sig_res_D10_D13 <- res_D10_D13 %>%
+  data.frame() %>%
+  rownames_to_column(var="Gene") %>% 
+  as_tibble() %>% 
+  filter(padj < padj.cutoff) %>%
+  filter(between(!log2FoldChange, -.58, .58) )
+print("sig_res_D10_D13")
+nrow(sig_res_D10_D13)
+
+res_D13_D18 <- results(dds, contrast=c("Stage","D13","D18"))
+sig_res_D13_D18 <- res_D13_D18 %>%
+  data.frame() %>%
+  rownames_to_column(var="Gene") %>% 
+  as_tibble() %>% 
+  filter(padj < padj.cutoff) %>%
+  filter(between(!log2FoldChange, -.58, .58) )
+print("sig_res_D13_D18")
+nrow(sig_res_D13_D18)
+
+res_D18_D32 <- results(dds, contrast=c("Stage","D18","D32"))
+sig_res_D18_D32 <- res_D18_D32 %>%
+  data.frame() %>%
+  rownames_to_column(var="Gene") %>% 
+  as_tibble() %>% 
+  filter(padj < padj.cutoff) %>%
+  filter(between(!log2FoldChange, -.58, .58) )
+print("sig_res_D18_D32")
+nrow(sig_res_D18_D32)
+
+res_D32_D60 <- results(dds, contrast=c("Stage","D32","D60"))
+sig_res_D32_D60 <- res_D32_D60 %>%
+  data.frame() %>%
+  rownames_to_column(var="Gene") %>% 
+  as_tibble() %>% 
+  filter(padj < padj.cutoff) %>%
+  filter(between(!log2FoldChange, -.58, .58) )
+print("sig_res_D32_D60")
+nrow(sig_res_D32_D60)
+
+res_D60_D60J <- results(dds, contrast=c("Stage","D60","D60J"))
+sig_res_D60_D60J <- res_D60_D60J %>%
+  data.frame() %>%
+  rownames_to_column(var="Gene") %>% 
+  as_tibble() %>% 
+  filter(padj < padj.cutoff) %>%
+  filter(between(!log2FoldChange, -.58, .58) )
+print("sig_res_D60_D60J")
+nrow(sig_res_D60_D60J)
+
+```
+# Create a data frame to store the results in table
+```{r}
+
+result_table <- data.frame(
+  Contrast = c("sig_res_D01_D03", "sig_res_D03_D06", "sig_res_D06_D10", "sig_res_D10_D13", 
+               "sig_res_D13_D18", "sig_res_D18_D32", "sig_res_D32_D60", "sig_res_D60_D60J"),
+  Total = c(nrow(sig_res_D01_D03), nrow(sig_res_D03_D06), nrow(sig_res_D06_D10), nrow(sig_res_D10_D13),
+            nrow(sig_res_D13_D18), nrow(sig_res_D18_D32), nrow(sig_res_D32_D60), nrow(sig_res_D60_D60J)),
+  Up = c(nrow(sig_res_D01_D03 %>% filter(log2FoldChange > 0)), nrow(sig_res_D03_D06 %>% filter(log2FoldChange > 0)),
+         nrow(sig_res_D06_D10 %>% filter(log2FoldChange > 0)), nrow(sig_res_D10_D13 %>% filter(log2FoldChange > 0)),
+         nrow(sig_res_D13_D18 %>% filter(log2FoldChange > 0)), nrow(sig_res_D18_D32 %>% filter(log2FoldChange > 0)),
+         nrow(sig_res_D32_D60 %>% filter(log2FoldChange > 0)), nrow(sig_res_D60_D60J %>% filter(log2FoldChange > 0))),
+  Down = c(nrow(sig_res_D01_D03 %>% filter(log2FoldChange < 0)), nrow(sig_res_D03_D06 %>% filter(log2FoldChange < 0)),
+           nrow(sig_res_D06_D10 %>% filter(log2FoldChange < 0)), nrow(sig_res_D10_D13 %>% filter(log2FoldChange < 0)),
+           nrow(sig_res_D13_D18 %>% filter(log2FoldChange < 0)), nrow(sig_res_D18_D32 %>% filter(log2FoldChange < 0)),
+           nrow(sig_res_D32_D60 %>% filter(log2FoldChange < 0)), nrow(sig_res_D60_D60J %>% filter(log2FoldChange < 0)))
+)
+
+# Print the table
+print(result_table)
+```
+
+
+#====================================================================================================
+### Plotting PCA ###
+#====================================================================================================
+
+# Data transformation
+```{r}
+vst <- varianceStabilizingTransformation(dds, blind=FALSE)
+```
+
+# PCA of all genes
+```{r}
+pcaData <- plotPCA(vst, intgroup="Stage", returnData=TRUE)
+percentVar <- round(100 * attr(pcaData, "percentVar"))
+pcaData$Stage = factor(pcaData$Stage)
+
+library(ggplot2)
+
+PCA <- ggplot(pcaData, aes(PC1, PC2, color=Stage)) +
+  geom_point(size=3) +
+  xlab(paste0("PC1: ",percentVar[1],"% variance")) +
+  ylab(paste0("PC2: ",percentVar[2],"% variance")) + 
+  coord_equal() +
+  scale_color_discrete(labels=c('D01', "D03", "D06", "D10", "D13", "D18", "D32", "D60", "Juvenile")) +
+  theme_bw() +
+  ggforce::geom_mark_ellipse(aes(fill = Stage, color = Stage), show.legend = FALSE)
+PCA
+
+# saving as jpeg and pdf
+jpeg("03_For_publication/PCA_plot.jpg", quality = 100)
+PCA
+dev.off()
+pdf("03_For_publication/PCA_plot.pdf")
+PCA
+dev.off()
+```
+
+
+

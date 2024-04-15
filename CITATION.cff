@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Huerlimann"
+  given-names: "Roger"
+  orcid: "https://orcid.org/0000-0002-6020-334X"
+title: "The transcriptional landscape underlying larval development and metamorphosis in the Malabar grouper (Epinephelus malabaricus)"
+version: 1.0.0
+doi: 10.5281/zenodo.1234
+date-released: 2024-04-14
+url: "https://github.com/R-Huerlimann/Malabar_grouper_genome"

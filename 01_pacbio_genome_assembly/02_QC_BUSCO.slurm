@@ -9,12 +9,11 @@
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=roger.huerlimann@oist.jp
 
-
 ### Environment ###
-module load BUSCO/4.1.2
+ml BUSCO/4.1.2
 export AUGUSTUS_CONFIG_PATH="/BUSCO_DB/config/"
 
-### Directories ###
+### Directories and Files ###
 DIRin=/malabar/01_assembly/
 FILEgenome=/malabar/01_assembly/19-final/final.p_ctg.fasta
 

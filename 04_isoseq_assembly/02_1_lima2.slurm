@@ -9,6 +9,7 @@
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=roger.huerlimann@oist.jp
 
+### Notes ###
 #DEMULTIPLEX
 #lima takes the ccs reads and identifies the full-length (FL) reads (have both 5' and 3' primers present) and removes the primers to produce FL reads.
 #If have barcodes also removes these
@@ -19,7 +20,7 @@
 ### Environment ###
 ml PB_isoseq3
 
-### Directories ###
+### Directories and Files ###
 DIRin=/malabar/04_isoseq_assembly/Run02
 DIRout=/malabar/04_isoseq_assembly/Run02
 indices=/malabar/00_Raw_data/Iso-Seq_96_primer_set.fasta

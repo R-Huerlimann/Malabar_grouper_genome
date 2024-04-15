@@ -9,6 +9,7 @@
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=roger.huerlimann@oist.jp
 
+### Notes ###
 #Use isoseq3 to REFINE - takes full length reads (combined dataset of all FL reads) and removes concatemers and polyA tails (if present) 
 #to produce full-length non-concatemer reads (FLNC)
 #runs fast (< 30 mins)
@@ -17,7 +18,7 @@
 ### Environment ###
 ml PB_isoseq3
 
-### Directories ###
+### Directories and Files ###
 DIRin1=/malabar/04_isoseq_assembly/Run01
 DIRin2=/malabar/04_isoseq_assembly/Run02
 

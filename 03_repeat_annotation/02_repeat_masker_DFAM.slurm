@@ -10,9 +10,9 @@
 #SBATCH --mail-user=roger.huerlimann@oist.jp
 
 ### Environment ###
-module load repeatMasker/4.1.1
+ml repeatMasker/4.1.1
 
-### Directories ###
+### Directories and Files ###
 DIRgenome=/malabar/02_HiC_scaffolded_assembly
 FILEgenome=Emal_final_scaffolded_phase1.fasta
 

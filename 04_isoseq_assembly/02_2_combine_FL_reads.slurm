@@ -9,6 +9,7 @@
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=roger.huerlimann@oist.jp
 
+### Notes ###
 #When doing demultiplexing with lima, if there are multiple 5p/3p primers then one 5p--3p.bam, 5p--3p.bam.pbi and 5p--3p.xml  output will be produced for each primer pair
 #.xml file has the path to the .bam and the .bam.pbi files so keep in the same location they were created
 #Combine all of the .bam files into one dataset so all the demultuplexed full-length reads are combine to increase transcript recovery
@@ -17,7 +18,7 @@
 ### Environment ###
 ml PB_isoseq3
 
-### Directories ###
+### Directories and Files ###
 DIRin1=/malabar/04_isoseq_assembly/Run01
 DIRin2=/malabar/04_isoseq_assembly/Run02
 

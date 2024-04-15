@@ -14,14 +14,14 @@ module load PB_IPA/20200928
 
 ### Directories ###
 DIRin1=/malabar/00_raw_data/PB_Run01
-DIRin2=/00_raw_data/PB_Run02
-DIRin3=/00_raw_data/PB_Run03
+DIRin2=/malabar/00_raw_data/PB_Run02
+DIRin3=/malabar/00_raw_data/PB_Run03
 DIRout=/malabar/01_assembly/
 
 echo "creating directory"
 mkdir -p ${DIRout}
 
-### Assembly ###
+### Code ###
 
 echo "starting assembly"
 ipa local       -i ${DIRin1}/m*.ccs.bam \

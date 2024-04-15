@@ -8,10 +8,10 @@
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=roger.huerlimann@oist.jp
 
-### Load modules ###
-module load repeatmodeler/1.6
+### Environment ###
+ml repeatmodeler/1.6
 
-### Paths and variables###
+### Directories and Files ###
 species=malabar_grouper
 
 DIRgenome=/malabar/02_HiC_scaffolded_assembly

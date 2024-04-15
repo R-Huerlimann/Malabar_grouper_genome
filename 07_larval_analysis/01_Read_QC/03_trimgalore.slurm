@@ -11,8 +11,8 @@
 #SBATCH --array=0-23%24
 
 ### Environment ###
-module load cutadapt
-module load trimgalore
+ml cutadapt
+ml trimgalore
 
 ### Directories and Files ###
 files=(/malabar/00_Raw_data/RNAseq_Larvae/ID240_AB/*R1_*gz)

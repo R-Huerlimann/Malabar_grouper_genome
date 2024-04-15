@@ -13,7 +13,38 @@ The genome assembly was carried out using unprocessed PacBio HiFi reads with the
 
 ## Genome annotation
 https://github.com/R-Huerlimann/Malabar_grouper_genome/tree/main/05_braker_genome_annotation
-Genome annotation was carried out as described Ryu et al (2022). Briefly, repeat content analysis was done in RepeatModeler (V2.0.1), RepeatMasker (V4.1.1), the vertebrata library of Dfam (V3.3), and GenomeTools (V1.6.1). Annotation was done using BRAKER269 and associated programs. For this, the ISO-seq data from the adult tissue and RNA-seq data from the larval samples (see below for quality control process) were used together with publicly available protein data. Post-processing was carried out as described by Ryu et al. (2022), also see below, using the Swiss-Prot protein database82 (UniProt) with Diamond74 (V2.0.9) and Pfam domains83 identified by InterProScan84 (V5.48.83.0). Gene model statistics were calculated using the get_general_stats.pl script from the eval package85 (V2.2.8). Finally, functional annotation was carried out with the filtered gene models produced by BRAKER. The amino acid sequences were blasted against the non-redundant protein database (downloaded 15. November 2021) using blastp86 (V2.10.0+; parameters: -show_gis -num_threads 10 -evalue 1e-5 -word_size 3 -num_alignments 20 -outfmt 14 -max_hsps 20). Additionally, protein domains were assigned using InterProScan84 (V5.48.83.0; parameters: --disable-precalc --goterms --pathways -f xml). The blast and interproscan results were then loaded into OmicsBox for post-processing. 
+Genome annotation was carried out as described Ryu et al (2022). Briefly, repeat content analysis was done in RepeatModeler (V2.0.1), RepeatMasker (V4.1.1), the vertebrata library of Dfam (V3.3), and GenomeTools (V1.6.1). The genome annotation was done using BRAKER2 and associated programs. For this, the ISO-seq data from the adult tissue and RNA-seq data from the larval samples (see below for quality control process) were used together with publicly available protein data. Post-processing was carried out as described by Ryu et al. (2022), also see below, using the Swiss-Prot protein database82 (UniProt) with Diamond74 (V2.0.9) and Pfam domains83 identified by InterProScan84 (V5.48.83.0). Gene model statistics were calculated using the get_general_stats.pl script from the eval package85 (V2.2.8). Finally, functional annotation was carried out with the filtered gene models produced by BRAKER. The amino acid sequences were blasted against the non-redundant protein database (downloaded 15. November 2021) using blastp86 (V2.10.0+; parameters: -show_gis -num_threads 10 -evalue 1e-5 -word_size 3 -num_alignments 20 -outfmt 14 -max_hsps 20). Additionally, protein domains were assigned using InterProScan84 (V5.48.83.0; parameters: --disable-precalc --goterms --pathways -f xml). The blast and interproscan results were then loaded into OmicsBox for post-processing. 
+
+For the repeat annotation, the final repeat outpus from DFAM and the *de novo* repeat models (See [Repeat annotation](03_repeat_annotation/))
+ were merged and curated with the following commands:
+ 
+Getting gff3 files
+```
+rmOutToGFF3.pl Emal_V1_24Chr_P0_rn_denovo.fasta.out  > merged_repeats_1.gff3
+        
+rmOutToGFF3.pl Emal_V1_24Chr_P0_rn_dfam.fasta.out > merged_repeats_2.gff3 
+```
+Validate, merge, sort, reformat gff files using genometools/1.6.1
+```
+gt gff3validator merged_repeats_1.gff3
+
+gt gff3 -sort merged_repeats_1.gff3  > merged_repeats_1.sorted.gff
+
+gt merge merged_repeats_1.sorted.gff merged_repeats_2.sorted.gff > merged_repeats.gff3
+
+gt uniq -o merged_repeats_unique.gff3 merged_repeats.gff3
+```
+
+Final filtering
+```
+grep -v -e "Satellite" -e ")n" -e "-rich" merged_repeats_unique.gff3 > merged_repeats_unique_complex.gff3   # isolate complex repeats
+
+cat merged_repeats_unique_complex.gff3 | \
+perl -ane '$id; if(!/^\#/){@F = split(/\t/, $_); chomp $F[-1];$id++; $F[-1] .= "\;ID=$id"; $_ = join("\t", @F)."\n"} print $_' \
+> merged_repeats_unique_complex_reformat.gff3
+```
+
+
 
 ### Braker output post processing
 The postprocessing of the braker output involved annotating the amino acid sequences produced by braker with Inter Pro Scan and SwissProt. This data, together with the information below was then used to filter the data in R and determine which processing step produced the best result based on BUSCO results. 

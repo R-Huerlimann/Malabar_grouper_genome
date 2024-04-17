@@ -93,16 +93,10 @@ Principle phase: JANUFT000000000
 Alternate phase: JANUFU000000000
 
 
-### Final gene models from BRAKER
+### Final gene models from BRAKER2 and and final functional annotation of gene models
 DOI: 10.6084/m9.figshare.25486387
 
-https://figshare.com/account/projects/199909/articles/25486387
-
-
-### Final functional annotation of gene models
-DOI: 10.6084/m9.figshare.25486360
-
-https://figshare.com/account/projects/199909/articles/25486360
+https://figshare.com/articles/dataset/Emal_final_gene_models_gff3/25486387
 
 
 ## References
